@@ -1,5 +1,6 @@
 import requests
 import urllib.parse
+from requests.exceptions import ConnectionError
 
 from urllib3 import HTTPConnectionPool
 from urllib3.exceptions import NewConnectionError
@@ -32,7 +33,7 @@ class SpotifyAuthenticator:
                 address = "http://screen.spotilocal.com:" + str(port)
                 requests.get(address)
                 return address
-            except requests.exceptions.ConnectionError:
+            except ConnectionError:
                 pass
         raise Exception("Could not find spotilocal address")
 

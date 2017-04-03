@@ -1,4 +1,5 @@
 from spotify_screen.spotify_authenticator import SpotifyAuthenticator
+from requests.exceptions import ConnectionError
 import mock
 from nose.tools import assert_equal
 from nose.tools import assert_regexp_matches
