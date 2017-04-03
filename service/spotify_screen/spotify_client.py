@@ -11,7 +11,7 @@ class SpotifyClient:
     def connect(self):
         self.__tokens = self.__authenticator.authenticate()
 
-    def get_track_info(self, trackid):
+    def get_track_info(self, trackid: str):
         return requests.get('https://api.spotify.com/v1/tracks/' + trackid).json()
 
     def get_current_status(self):

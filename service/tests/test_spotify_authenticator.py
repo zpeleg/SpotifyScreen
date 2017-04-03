@@ -30,7 +30,7 @@ class TestSpotifyAuthenticator:
     def test_authenticate_should_return_spotilocal_address(self, mock_requests):
         regex = r"http://\w+\.spotilocal\.com:(\d+)/?"
 
-        def get(address, headers=None):
+        def get(address, headers=None, timeout=None):
             match = re.match(regex, address)
             if not match or match.groups()[0] == '4380':
                 return mock.DEFAULT
