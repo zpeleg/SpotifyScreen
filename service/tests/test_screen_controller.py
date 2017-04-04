@@ -1,7 +1,7 @@
-from spotify_screen.screen_controller import SpotifyClient, KeyboardProxy, ScreenController, ScreenViewModel
-import mock
-from nose.tools import assert_is_not_none, assert_true, assert_equal
 import json
+import mock
+from nose.tools import assert_equal
+from spotify_screen.screen_controller import SpotifyClient, KeyboardProxy, ScreenController
 
 
 class TestScreenController:
@@ -49,4 +49,3 @@ class TestScreenController:
         self.instance.get_current_viewmodel()
         # Assert
         self.spotify.get_track_info.assert_called_once_with("3Eh33UmqyS7PGIfaNQgr0d")
-

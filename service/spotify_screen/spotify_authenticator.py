@@ -2,9 +2,6 @@ import requests
 import urllib.parse
 from requests.exceptions import ConnectionError, ReadTimeout
 
-from urllib3 import HTTPConnectionPool
-from urllib3.exceptions import NewConnectionError
-
 
 class AuthenticationTokens:
     def __init__(self, oauth: str, csrf: str, address: str):

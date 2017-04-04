@@ -1,4 +1,3 @@
-from nose.tools import assert_equal
 import mock
 from spotify_screen.keyboard_proxy import KeyboardProxy
 
