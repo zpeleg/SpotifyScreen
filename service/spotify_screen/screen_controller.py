@@ -1,6 +1,7 @@
-from spotify_screen.keyboard_proxy import KeyboardProxy
+from spotify_screen.keyboard_proxy import KeyboardProxy, LinuxKeyboardProxy
 from spotify_screen.spotify_client import SpotifyClient
-from typing import List, Dict
+from typing import List, Dict, Union
+import json
 
 
 class ScreenViewModel:
@@ -12,9 +13,12 @@ class ScreenViewModel:
         self.repeat = repeat
         self.playing = playing
 
+    def __str__(self):
+        return json.dumps(self.__dict__)
+
 
 class ScreenController:
-    def __init__(self, spotify_client: SpotifyClient, keyboard_proxy: KeyboardProxy):
+    def __init__(self, spotify_client: SpotifyClient, keyboard_proxy: Union[KeyboardProxy, LinuxKeyboardProxy]):
         self._spotify = spotify_client
         self._keyboard = keyboard_proxy
         self._song_cache = {}  # type: Dict[str,Dict]
