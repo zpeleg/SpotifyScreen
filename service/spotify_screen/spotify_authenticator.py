@@ -15,16 +15,16 @@ class AuthenticationTokens:
 
 class SpotifyAuthenticator:
     def authenticate(self):
-        oauth = self.__get_oauth()
-        address = self.__get_address()
-        csrf = self.__get_csrf(address)
+        oauth = self._get_oauth()
+        address = self._get_address()
+        csrf = self._get_csrf(address)
         return AuthenticationTokens(oauth, csrf, address)
 
-    def __get_oauth(self):
+    def _get_oauth(self):
         response = requests.get("https://open.spotify.com/token")
         return response.json()["t"]
 
-    def __get_address(self):
+    def _get_address(self):
         for port in range(4370, 4390):
             try:
                 address = "http://screen.spotilocal.com:" + str(port)
@@ -36,7 +36,7 @@ class SpotifyAuthenticator:
                 pass
         raise Exception("Could not find spotilocal address")
 
-    def __get_csrf(self, spotilocal_address):
+    def _get_csrf(self, spotilocal_address):
         url = urllib.parse.urljoin(spotilocal_address, "/simplecsrf/token.json")
         response = requests.get(url, headers={'Origin': 'https://open.spotify.com'})
         return response.json()["token"]
