@@ -9,26 +9,22 @@
 ScrollingText::ScrollingText(
         const char *text,
         U8G2 *screen,
-        u8g2_uint_t speed,
+        int speed,
         u8g2_uint_t y) : screen(screen),
                          moveDelay(1000 / speed),
                          y(y) {
-    this->text = new char[strlen(text) + 3];
+
+    this->text = new char[strlen(text) + 5];
     strcpy(this->text, text);
-    strcat(this->text, "   ");
+    strcat(this->text, "     ");
     textLength = strlen(this->text);
     currentIndex = 0;
-    Serial.println("!!!!!!!!!!!!!!!!!!!!!!!1");
+
     this->InitScrollingChars();
 }
 
 void ScrollingText::InitScrollingChars() {
     for (currentIndex = 0; currentIndex < BUFFER_SIZE; ++currentIndex) {
-        Serial.print("Created char: \"");
-        Serial.print(text[currentIndex % textLength]);
-        Serial.print("\" at position: ");
-        Serial.println(currentIndex % BUFFER_SIZE);
-
         characterBuffer[currentIndex % BUFFER_SIZE] = ScrollingChar(text[currentIndex % textLength], y,
                                                                     FONT_WIDTH * currentIndex,
                                                                     screen);
@@ -52,7 +48,6 @@ void ScrollingText::Display(unsigned long currentMilliseconds) {
             characterBuffer[currentIndex % BUFFER_SIZE] = ScrollingChar(text[currentIndex % textLength], y,
                                                                         127,
                                                                         screen);
-            Serial.println("Created");
             currentIndex++;
         }
     }

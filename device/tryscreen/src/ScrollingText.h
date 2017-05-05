@@ -11,7 +11,7 @@
 
 class ScrollingText {
 public:
-    ScrollingText(const char* text, U8G2 *screen, u8g2_uint_t speed,u8g2_uint_t y);
+    ScrollingText(const char* text, U8G2 *screen, int speed,u8g2_uint_t y);
     virtual ~ScrollingText();
     void Display(unsigned long currentMilliseconds);
 
@@ -19,7 +19,7 @@ private:
     U8G2 *screen;
     char* text;
     uint textLength;
-    u8g2_uint_t moveDelay;
+    int moveDelay;
     u8g2_uint_t y;
     ScrollingChar characterBuffer[BUFFER_SIZE];
     int currentIndex;

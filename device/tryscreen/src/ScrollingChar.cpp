@@ -12,7 +12,6 @@ ScrollingChar::ScrollingChar(char character, u8g2_uint_t y, u8g2_uint_t initialX
 }
 
 ScrollingChar::ScrollingChar() {
-    Serial.println("I was called;");
     y = 0;
     x = 0;
     screen = 0;
@@ -21,13 +20,6 @@ ScrollingChar::ScrollingChar() {
 }
 
 void ScrollingChar::Draw() {
-    Serial.print("x=");
-    Serial.print(x);
-    Serial.print(" y=");
-    Serial.print(y);
-    Serial.print(" char=\"");
-    Serial.print(character[0]);
-    Serial.println("\"");
     if (screen != 0) {
         screen->drawStr(x, y, character);
     }
