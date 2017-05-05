@@ -1,6 +1,7 @@
 import requests
 import time
 import urllib.parse
+from typing import Dict
 
 
 class SpotifyClient:
@@ -11,10 +12,10 @@ class SpotifyClient:
     def connect(self):
         self.__tokens = self.__authenticator.authenticate()
 
-    def get_track_info(self, trackid):
+    def get_track_info(self, trackid: str) -> Dict:
         return requests.get('https://api.spotify.com/v1/tracks/' + trackid).json()
 
-    def get_current_status(self):
+    def get_current_status(self) -> Dict:
         url = urllib.parse.urljoin(self.__tokens.address, '/remote/status.json')
         return requests.get(url, params={
             "oauth": self.__tokens.oauth,

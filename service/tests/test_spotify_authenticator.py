@@ -30,7 +30,7 @@ class TestSpotifyAuthenticator:
     def test_authenticate_should_return_spotilocal_address(self, mock_requests):
         regex = r"http://\w+\.spotilocal\.com:(\d+)/?"
 
-        def get(address, headers=None):
+        def get(address, headers=None, timeout=None):
             match = re.match(regex, address)
             if not match or match.groups()[0] == '4380':
                 return mock.DEFAULT
@@ -47,4 +47,5 @@ class TestSpotifyAuthenticator:
         mock_requests.get.return_value = MockResponse(self.mixedresponse)
         tokens = self.instance.authenticate()
         assert_equal(tokens.csrf, "csrftoken")
-        mock_requests.get.assert_any_call("https://screen.spotilocal.com:4380/simplecsrf/token.json", headers={'Origin': 'https://open.spotify.com'})
+        mock_requests.get.assert_any_call("https://screen.spotilocal.com:4380/simplecsrf/token.json",
+                                          headers={'Origin': 'https://open.spotify.com'})

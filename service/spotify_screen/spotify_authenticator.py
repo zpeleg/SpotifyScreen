@@ -1,13 +1,10 @@
 import requests
 import urllib.parse
-from requests.exceptions import ConnectionError
-
-from urllib3 import HTTPConnectionPool
-from urllib3.exceptions import NewConnectionError
+from requests.exceptions import ConnectionError, ReadTimeout
 
 
 class AuthenticationTokens:
-    def __init__(self, oauth, csrf, address):
+    def __init__(self, oauth: str, csrf: str, address: str):
         self.oauth = oauth
         self.csrf = csrf
         self.address = address
@@ -31,9 +28,11 @@ class SpotifyAuthenticator:
         for port in range(4370, 4390):
             try:
                 address = "http://screen.spotilocal.com:" + str(port)
-                requests.get(address)
+                requests.get(address, timeout=0.01)
                 return address
             except ConnectionError:
+                pass
+            except ReadTimeout:
                 pass
         raise Exception("Could not find spotilocal address")
 
