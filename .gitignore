@@ -153,3 +153,5 @@ cmake-build-release/
 .piolibdeps
 CMakeListsPrivate.txt
 
+workspace.xml
+device/tryscreen/.idea/workspace.xml

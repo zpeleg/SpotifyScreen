@@ -7,10 +7,10 @@
 #include "SPI.h"
 #include "Wire.h"
 #include "U8g2lib.h"
-#include "ScrollingText.h"
+#include "Text/ScrollingText.h"
 #include "IconsData.h"
 #include "IconDisplay.h"
-#include "TextProxy.h"
+#include "Text/TextProxy.h"
 
 //U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI screen(U8G2_R0, /* cs=*/ 10, /* dc=*/ 9, /* reset=*/ 8);
 U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI *screen;//(U8G2_R0, 15, 5, 0);
