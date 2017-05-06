@@ -8,10 +8,12 @@
 #include "Wire.h"
 #include "U8g2lib.h"
 #include "ScrollingText.h"
-#include "Icons.h"
+#include "IconsData.h"
+#include "IconDisplay.h"
 
 //U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI screen(U8G2_R0, /* cs=*/ 10, /* dc=*/ 9, /* reset=*/ 8);
 U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI *screen;//(U8G2_R0, 15, 5, 0);
+IconDisplay *icons;
 ScrollingText *text;
 ScrollingText *text1;
 ScrollingText *text2;
@@ -30,25 +32,34 @@ void setup() {
     text = new ScrollingText(title.c_str(), screen, SPEED, FONT_HEIGHT);
     text1 = new ScrollingText(artists.c_str(), screen, SPEED, FONT_HEIGHT * 2);
     text2 = new ScrollingText(album.c_str(), screen, SPEED, FONT_HEIGHT * 3);
+    icons = new IconDisplay(screen);
+    const IconViewModel model(true, true, true);
+    model.PrintDebug();
+    icons->UpdateStatus(model);
 }
+
+int counter = 0;
+unsigned long lastTime = 0;
+unsigned long delayTime = 1000;
 
 void loop() {
     screen->clearBuffer();
-    screen->setFont(FONT_REGULAR);
+
     unsigned long currentTime = millis();
+
+    screen->setFont(FONT_REGULAR);
     text->Display(currentTime);
     text2->Display(currentTime);
     screen->setFont(FONT_BOLD);
     text1->Display(currentTime);
 
-    screen->drawXBM(10, 64 - 20, 16, 16, shuffle_bits);
-    screen->drawXBM(10 + 17, 64 - 20, 16, 16, repeat_bits);
-    screen->drawXBM(10 + 17 * 2, 64 - 20, 16, 16, play_bits);
-    screen->drawXBM(10 + 17 * 3, 64 - 20, 16, 16, pause_bits);
+    icons->Draw();
 
-    int traX = 10 + 17 * 4;
-    int traY = 64-20;
-    screen->drawTriangle(traX + 0, traY + 0, traX + 14, traY + 7, traX + 0, traY + 14);
     screen->sendBuffer();
-    yield();
+    if (currentTime - lastTime > delayTime) {
+        lastTime = currentTime;
+        IconViewModel model(counter & 0x1, counter & 0x2, counter & 0x4);
+        icons->UpdateStatus(model);
+        counter++;
+    }
 }
