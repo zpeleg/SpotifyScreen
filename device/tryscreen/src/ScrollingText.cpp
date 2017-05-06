@@ -6,13 +6,9 @@
 #include "Consts.h"
 
 // Speed is px/s
-ScrollingText::ScrollingText(
-        const char *text,
-        U8G2 *screen,
-        int speed,
-        u8g2_uint_t y) : screen(screen),
-                         moveDelay(1000 / speed),
-                         y(y) {
+ScrollingText::ScrollingText(U8G2 *screen, const char *text, int speed, u8g2_uint_t y) : screen(screen),
+                                                                                         moveDelay(1000 / speed),
+                                                                                         y(y) {
 
     this->text = new char[strlen(text) + 5];
     strcpy(this->text, text);

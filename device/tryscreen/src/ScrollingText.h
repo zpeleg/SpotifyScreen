@@ -8,10 +8,11 @@
 #include "U8g2lib.h"
 #include "ScrollingChar.h"
 #include "Consts.h"
+#include "BaseText.h"
 
-class ScrollingText {
+class ScrollingText : public BaseText {
 public:
-    ScrollingText(const char *text, U8G2 *screen, int speed, u8g2_uint_t y);
+    ScrollingText(U8G2 *screen, const char *text, int speed, u8g2_uint_t y);
 
     virtual ~ScrollingText();
 
