@@ -146,3 +146,12 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Platformio
+cmake-build-debug/
+cmake-build-release/
+.pioenvs
+.piolibdeps
+CMakeListsPrivate.txt
+
+workspace.xml
+device/tryscreen/.idea/workspace.xml
