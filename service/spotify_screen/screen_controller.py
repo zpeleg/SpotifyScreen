@@ -56,7 +56,7 @@ class ScreenController:
         return ScreenViewModel(track_info["name"], list(map(lambda artist: artist["name"], track_info["artists"])),
                                track_info["album"]["name"], status["shuffle"], status["repeat"], status["playing"])
 
-    def run(self):
+    def check_changes(self):
         new_vm = self.get_current_viewmodel()
         if new_vm != self._current_status:
             self._current_status = new_vm
